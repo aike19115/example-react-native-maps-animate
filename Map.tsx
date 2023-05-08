@@ -44,19 +44,19 @@ export function Map() {
 
   const onPressRecenter = React.useCallback(async () => {
     if (currentCoordinatesRef.current) {
-      // mapViewRef.current?.animateCamera({
-      //   center: {
-      //     latitude: currentCoordinatesRef.current.latitude,
-      //     longitude: currentCoordinatesRef.current.longitude,
-      //   },
-      //   zoom: USER_LOCATION_RECENTER_ZOOM_LEVEL,
-      // });
-      mapViewRef.current?.animateToRegion({
-        latitude: currentCoordinatesRef.current.latitude,
-        latitudeDelta: coordinateDelta,
-        longitude: currentCoordinatesRef.current.longitude,
-        longitudeDelta: coordinateDelta,
+      mapViewRef.current?.animateCamera({
+        center: {
+          latitude: currentCoordinatesRef.current.latitude,
+          longitude: currentCoordinatesRef.current.longitude,
+        },
+        zoom: USER_LOCATION_RECENTER_ZOOM_LEVEL,
       });
+      // mapViewRef.current?.animateToRegion({
+      //   latitude: currentCoordinatesRef.current.latitude,
+      //   latitudeDelta: coordinateDelta,
+      //   longitude: currentCoordinatesRef.current.longitude,
+      //   longitudeDelta: coordinateDelta,
+      // });
     }
   }, []);
 
