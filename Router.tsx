@@ -1,18 +1,18 @@
 import React from 'react';
 import {View} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 import {Map} from './Map';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const optionsHideHeader = {
   headerShown: false,
 } as const;
 
-const navigatorScreenOptions = {
+const optionsDisableSwipe = {
   swipeEnabled: false,
 } as const;
 
@@ -30,7 +30,7 @@ function TopTab() {
   );
   return (
     <View style={style}>
-      <TopTabNavigator.Navigator screenOptions={navigatorScreenOptions}>
+      <TopTabNavigator.Navigator screenOptions={optionsDisableSwipe}>
         <TopTabNavigator.Screen name={'X'} component={Map} />
         <TopTabNavigator.Screen name={'Y'} component={View} />
         <TopTabNavigator.Screen name={'Z'} component={View} />
