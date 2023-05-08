@@ -22,8 +22,8 @@ const coordinateDelta = convertZoomLevelToCoordinateDelta(
 );
 
 export function App() {
+  const currentCoordinatesRef = React.useRef<LatLng>();
   const currentRegionRef = React.useRef<Region>();
-  const currentUserCoordinatesRef = React.useRef<LatLng>();
   const mapViewRef = React.useRef<MapView>(null);
 
   const onRegionChange = React.useCallback((region: Region) => {
@@ -32,30 +32,22 @@ export function App() {
 
   const onUserLocationChange = React.useCallback(
     (event: UserLocationChangeEvent) => {
-      if (
-        !event.nativeEvent.coordinate?.latitude ||
-        !event.nativeEvent.coordinate?.longitude
-      ) {
-        return;
+      if (event.nativeEvent.coordinate) {
+        currentCoordinatesRef.current = {
+          latitude: event.nativeEvent.coordinate.latitude,
+          longitude: event.nativeEvent.coordinate.longitude,
+        };
       }
-
-      currentUserCoordinatesRef.current = {
-        latitude: event.nativeEvent.coordinate?.latitude,
-        longitude: event.nativeEvent.coordinate?.longitude,
-      };
     },
     [],
   );
 
   const onPressRecenter = React.useCallback(async () => {
-    if (currentUserCoordinatesRef.current) {
-      const latitude = currentUserCoordinatesRef.current?.latitude;
-      const longitude = currentUserCoordinatesRef.current?.longitude;
-
+    if (currentCoordinatesRef.current) {
       mapViewRef.current?.animateToRegion({
-        latitude,
+        latitude: currentCoordinatesRef.current?.latitude,
         latitudeDelta: coordinateDelta,
-        longitude,
+        longitude: currentCoordinatesRef.current?.longitude,
         longitudeDelta: coordinateDelta,
       });
     }
