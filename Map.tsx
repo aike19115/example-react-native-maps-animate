@@ -9,6 +9,9 @@ import MapView, {
 
 enableLatestRenderer();
 
+// By toggling this you can turn on/off the bug
+const enableAnimation = true;
+
 export function Map() {
   const currentCoordinatesRef = React.useRef<LatLng>();
   const mapViewRef = React.useRef<MapView>(null);
@@ -27,13 +30,18 @@ export function Map() {
 
   const onPressRecenter = React.useCallback(() => {
     if (currentCoordinatesRef.current) {
-      mapViewRef.current?.animateCamera({
+      const partialCamera = {
         center: {
           latitude: currentCoordinatesRef.current.latitude,
           longitude: currentCoordinatesRef.current.longitude,
         },
         zoom: 14,
-      });
+      } as const;
+      if (enableAnimation) {
+        mapViewRef.current?.animateCamera(partialCamera);
+      } else {
+        mapViewRef.current?.setCamera(partialCamera);
+      }
     }
   }, []);
 
