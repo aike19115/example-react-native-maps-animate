@@ -18,7 +18,6 @@ function BottomTab() {
       <BottomTabNavigator.Screen name={'A'} component={Map} />
       <BottomTabNavigator.Screen name={'B'} component={View} />
       <BottomTabNavigator.Screen name={'C'} component={View} />
-      <BottomTabNavigator.Screen name={'D'} component={View} />
     </BottomTabNavigator.Navigator>
   );
 }

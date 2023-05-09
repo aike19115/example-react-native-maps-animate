@@ -4,27 +4,14 @@ import MapView, {
   enableLatestRenderer,
   LatLng,
   PROVIDER_GOOGLE,
-  Region,
   UserLocationChangeEvent,
 } from 'react-native-maps';
 
 enableLatestRenderer();
 
-function convertZoomLevelToCoordinateDelta(zoomLevel: number): number {
-  // This is a mathematical formula to convert a zoom level to a coordinate delta
-  return Math.exp(Math.log(360) - zoomLevel * Math.LN2);
-}
-
-const USER_LOCATION_RECENTER_ZOOM_LEVEL = 14;
-
 export function Map() {
   const currentCoordinatesRef = React.useRef<LatLng>();
-  const currentRegionRef = React.useRef<Region>();
   const mapViewRef = React.useRef<MapView>(null);
-
-  const onRegionChange = React.useCallback((region: Region) => {
-    currentRegionRef.current = region;
-  }, []);
 
   const onUserLocationChange = React.useCallback(
     (event: UserLocationChangeEvent) => {
@@ -38,31 +25,21 @@ export function Map() {
     [],
   );
 
-  const onPressRecenter = React.useCallback(async () => {
+  const onPressRecenter = React.useCallback(() => {
     if (currentCoordinatesRef.current) {
       mapViewRef.current?.animateCamera({
         center: {
           latitude: currentCoordinatesRef.current.latitude,
           longitude: currentCoordinatesRef.current.longitude,
         },
-        zoom: USER_LOCATION_RECENTER_ZOOM_LEVEL,
+        zoom: 14,
       });
-      // const coordinateDelta = convertZoomLevelToCoordinateDelta(
-      //   USER_LOCATION_RECENTER_ZOOM_LEVEL,
-      // );
-      // mapViewRef.current?.animateToRegion({
-      //   latitude: currentCoordinatesRef.current.latitude,
-      //   latitudeDelta: coordinateDelta,
-      //   longitude: currentCoordinatesRef.current.longitude,
-      //   longitudeDelta: coordinateDelta,
-      // });
     }
   }, []);
 
   return (
     <>
       <MapView
-        onRegionChange={onRegionChange}
         onUserLocationChange={onUserLocationChange}
         provider={PROVIDER_GOOGLE}
         ref={mapViewRef}
