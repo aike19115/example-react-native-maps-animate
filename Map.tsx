@@ -17,10 +17,6 @@ function convertZoomLevelToCoordinateDelta(zoomLevel: number): number {
 
 const USER_LOCATION_RECENTER_ZOOM_LEVEL = 14;
 
-const coordinateDelta = convertZoomLevelToCoordinateDelta(
-  USER_LOCATION_RECENTER_ZOOM_LEVEL,
-);
-
 export function Map() {
   const currentCoordinatesRef = React.useRef<LatLng>();
   const currentRegionRef = React.useRef<Region>();
@@ -51,6 +47,9 @@ export function Map() {
         },
         zoom: USER_LOCATION_RECENTER_ZOOM_LEVEL,
       });
+      // const coordinateDelta = convertZoomLevelToCoordinateDelta(
+      //   USER_LOCATION_RECENTER_ZOOM_LEVEL,
+      // );
       // mapViewRef.current?.animateToRegion({
       //   latitude: currentCoordinatesRef.current.latitude,
       //   latitudeDelta: coordinateDelta,

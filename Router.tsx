@@ -1,7 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
@@ -11,24 +10,12 @@ const optionsHideHeader = {
   headerShown: false,
 } as const;
 
-const TopTabNavigator = createMaterialTopTabNavigator();
-
-function TopTab() {
-  return (
-    <TopTabNavigator.Navigator>
-      <TopTabNavigator.Screen name={'X'} component={Map} />
-      <TopTabNavigator.Screen name={'Y'} component={View} />
-      <TopTabNavigator.Screen name={'Z'} component={View} />
-    </TopTabNavigator.Navigator>
-  );
-}
-
 const BottomTabNavigator = createBottomTabNavigator();
 
-export function BottomTab() {
+function BottomTab() {
   return (
     <BottomTabNavigator.Navigator>
-      <BottomTabNavigator.Screen name={'A'} component={TopTab} />
+      <BottomTabNavigator.Screen name={'A'} component={Map} />
       <BottomTabNavigator.Screen name={'B'} component={View} />
       <BottomTabNavigator.Screen name={'C'} component={View} />
       <BottomTabNavigator.Screen name={'D'} component={View} />
