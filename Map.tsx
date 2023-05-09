@@ -76,4 +76,4 @@ const styles = StyleSheet.create({
   flex: {
     flex: 1,
   },
-});
+} as const);
