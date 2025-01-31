@@ -1,13 +1,10 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
 import MapView, {
-  enableLatestRenderer,
   LatLng,
   PROVIDER_GOOGLE,
   UserLocationChangeEvent,
 } from 'react-native-maps';
-
-enableLatestRenderer();
 
 // By toggling this you can turn on/off the bug
 const enableAnimation = true;
